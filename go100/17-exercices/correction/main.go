@@ -16,6 +16,7 @@ func indexOf(search string, s []string) int {
 //split prend en paramètre une chaine recherchée et un slice de chaines,
 //et retourne un slice de slice.
 //Ex: split([]string{"|", "B", "|", "C", "D", "E", "|", "F", "|"}) = [[B] [C D E] [F]]
+//Ex2: split("|", []string{"|", "B", "|", "C", "D", "E", "|", "F", "|", "G"}) = [[B] [C D E] [F] [G]]
 func split(search string, s []string) [][]string {
 	splitted := make([][]string, 0, 5)
 	lastIndex := 0
@@ -26,6 +27,10 @@ func split(search string, s []string) [][]string {
 			}
 			lastIndex = i + 1
 		}
+	}
+	// Ceci permet de penser au cas rencontré comme dasns l'exemple n°2 où le délimiteur n'est pas le dernier élément
+	if lastIndex < len(s) {
+		splitted = append(splitted, s[lastIndex:])
 	}
 	return splitted
 }
@@ -46,4 +51,8 @@ func main() {
 	var toBeSplitted = []string{"|", "B", "|", "C", "D", "E", "|", "F", "|"}
 	splitted := split("|", toBeSplitted)
 	fmt.Println(splitted)
+
+	var toBeSplitted2 = []string{"|", "B", "|", "C", "D", "E", "|", "F", "|", "G"}
+	splitted2 := split("|", toBeSplitted2)
+	fmt.Println(splitted2)
 }
